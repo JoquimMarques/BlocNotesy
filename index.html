@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="apple-touch-icon" href="favicon_io-6/apple-touch-icon.png">
+    <link rel="shortcut icon" href="favicon_io-6/apple-touch-icon.png" type="image/png">
+    <link rel="stylesheet" href="fontawesome-free-6.5.2-web/css/all.min.css">
+    <link rel="stylesheet" href="estiloNota.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+BE+VLG:wght@100..400&display=swap" rel="stylesheet">
+    <title>BlocNotesy</title>
+    
+</head>
+<body>
+    <header>
+        <h1 class="entrada-h1" id="entradaTitulo">Bloc<span>Notesy</span><i class="fas fa-sticky-note"></i></h1>
+        <nav>
+            <div class="menu-hamburguer" id="menuHamburguer">
+                <span class="hamburguer"><i class="fa-solid fa-bars"></i></span>
+                <span class="fechar"><i class="fa-solid fa-x"></i></span>
+            </div>
+            <ul class="menu-lista" id="menuLista">
+                <li><a href="Imagens/index.html" class="copy"><i class="fa-solid fa-address-card"></i></a></li>
+             
+            </button>
+              
+            </ul>
+        </nav>
+    
+        <h1 class="titulo">Bloc<span>Notesy</span><i class="fas fa-sticky-note"></i></h1>
+    </header>
+   
+    <section class="adice_nota" style="display: none;">
+        <article class="adice_note_article">
+            <input class="adice_nota_input" type="text" placeholder="Tema" autocomplete="none"> 
+            <textarea class="adice_nota_text" placeholder="Digite qualquer coisa" autocomplete="none"></textarea>
+            <button class="boton_adice"><i class="fa-solid fa-circle-plus"></i>Adicionar Nota</button>
+            
+           
+        </article>    
+    </section>
+
+          <div class="redape" id="rodape">
+            <div class="menu_rodape">
+            <button class="boton_mostrar_notas"><i class="fa-solid fa-angles-left"></i></button>
+            <button id="voltar_notas" class="botao_voltar_seccao"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="desenvol"><a href="Imagens/index.html"><i class="fa-solid fa-address-card"></i></a></button>
+            </div>
+          </div>
+    
+    <div class="notification" id="notification"></div>
+      
+    <section class="notas" style="display: block;">
+        
+        <button class="boton_elim"><i class="fa-solid fa-trash-can"></i>Eliminar Notas</button>
+        <div class="conjunto">
+        <button id="botao_pesquisar"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <input type="text" id="pesquisa_nota" placeholder="Pesquisar por tema...">
+        </div>
+       
+        
+    </section>
+    <section class="lista_notas" style="display: block;">
+        
+        
+        
+    </section>
+    
+    
+   
+   
+    <script>
+     "use strict";
+
+
+
+
+const notas = document.querySelector('.notas');
+const addTitulo = document.querySelector('.adice_nota_input');
+const addTexto = document.querySelector('.adice_nota_text');
+const botaoAdd = document.querySelector('.boton_adice');
+const botaoElim = document.querySelector('.boton_elim');
+const botaoMostrarNotas = document.querySelector('.boton_mostrar_notas');
+const listaNotas = document.querySelector('.lista_notas');
+const campoPesquisa = document.getElementById('pesquisa_nota');
+const botaoVoltarSeccao = document.querySelectorAll('.botao_voltar_seccao');
+
+let i = localStorage.getItem('notaCount') ? Number(localStorage.getItem('notaCount')) : 0;
+
+// Carrega as notas salvas ao carregar a página
+window.addEventListener("load", () => {
+    carregarNotasSalvas();
+    exibirListaNotas(); // Exibe as notas ao carregar a página
+});
+
+// Adiciona uma nova nota
+function adicionarNota(title = '',text = '',date = new Date().toLocaleString()) {
+    localStorage.setItem(`you_nota_title${i}`, title);
+    localStorage.setItem(`you_nota_text${i}`, text);
+    localStorage.setItem(`you_nota_date${i}`, date);
+    i++;
+    localStorage.setItem('notaCount', i);
+}
+
+// Elimina todas as notas
+function eliminarTodasNotas() {
+    localStorage.removeItem('notaCount');
+    for (let index = 0; index < i; index++) {
+        localStorage.removeItem(`you_nota_title${index}`);
+        localStorage.removeItem(`you_nota_text${index}`);
+        localStorage.removeItem(`you_nota_date${index}`);
+    }
+    i = 0;
+    listaNotas.innerHTML = '';
+}
+
+// Mostra notificação
+function mostrarNotificacao(mensagem) {
+    const notificacao = document.getElementById('notification');
+    notificacao.textContent = mensagem;
+    notificacao.classList.add('show');
+    setTimeout(() => {
+        notificacao.classList.remove('show');
+    }, 4000); // Notificação visível por 4s
+}
+
+// Adiciona uma nova nota
+botaoAdd.addEventListener("click", () => {
+    if (addTitulo.value.length !== 0 && addTexto.value.length !== 0) {
+        adicionarNota(addTitulo.value, addTexto.value);
+        addTitulo.value = "";
+        addTexto.value = "";
+        mostrarNotificacao("Nota Adicionada");
+    }
+});
+
+// Elimina todas as notas
+botaoElim.addEventListener("click", () => {
+    eliminarTodasNotas();
+    mostrarNotificacao("Todas as Notas Eliminadas");
+});
+
+// Mostra a lista de notas
+botaoMostrarNotas.addEventListener('click', () => {
+    exibirListaNotas();
+});
+
+// Exibe a lista de notas
+function exibirListaNotas() {
+    document.querySelector('section.adice_nota').style.display = 'none';
+    document.querySelector('h1.titulo').style.display = 'block';
+    document.querySelector('div#menuHamburguer').style.display = 'block';
+
+    document.querySelector('input#pesquisa_nota').style.display = 'block';
+    document.querySelector('button#botao_pesquisar').style.display = 'block';
+    document.querySelector('button.boton_elim').style.display = 'block';
+    document.querySelector('button#voltar_notas').style.display = 'block';
+    document.querySelector('div#rodape').style.display = 'block';
+
+    notas.style.display = 'block';
+    listaNotas.style.display = 'block';
+    listaNotas.innerHTML = '';
+
+    for (let index = 0; index < i; index++) {
+        const titleKey = `you_nota_title${index}`;
+        const titleValue = localStorage.getItem(titleKey);
+        const starStatusKey = `you_nota_star${index}`;
+        const isStarred = localStorage.getItem(starStatusKey) === 'true';
+
+        if (titleValue !== null) {
+            const noteItem = document.createElement('div');
+            noteItem.classList.add('nota_item');
+            noteItem.dataset.index = index;
+
+            // Adiciona o título da nota e o ícone de estrela
+            noteItem.innerHTML = `
+                ${titleValue}
+                <button class="btn_star" onclick="toggleStar(this, ${index})">
+                    <i class="fa-star ${isStarred ? 'fa-solid' : 'fa-regular'}" data-index="${index}" style="color: ${isStarred ? 'yellow' : 'white'}"></i>
+                </button>
+            `;
+            listaNotas.appendChild(noteItem);
+        }
+    }
+}
+
+// Função para alternar a estrela e salvar o estado
+function toggleStar(button, index) {
+    const icon = button.querySelector('i');
+    const starStatusKey = `you_nota_star${index}`;
+    
+    if (icon.classList.contains('fa-regular')) {
+        icon.classList.remove('fa-regular');
+        icon.classList.add('fa-solid');
+        icon.style.color = "yellow";
+        localStorage.setItem(starStatusKey, 'true');
+    } else {
+        icon.classList.remove('fa-solid');
+        icon.classList.add('fa-regular');
+        icon.style.color = "initial" ; // volta à cor padrão
+        icon.style.color = " white";
+        localStorage.setItem(starStatusKey, 'false');
+    }
+}
+
+// Mostra o conteúdo da nota ao clicar na lista
+listaNotas.addEventListener('click', (event) => {
+    if (event.target.classList.contains('nota_item')) {
+        mostrarNota(event.target.dataset.index);
+    }
+});
+
+// Mostra os detalhes de uma nota
+function mostrarNota(index) {
+    const titleKey = `you_nota_title${index}`;
+    const textKey = `you_nota_text${index}`;
+    const dateKey = `you_nota_date${index}`;
+    document.querySelector('input#pesquisa_nota').style.display = 'none';
+    document.querySelector('button#botao_pesquisar').style.display = ' none';
+    document.querySelector('button#voltar_notas').style.display = 'none';
+    document.querySelector('h1.titulo').style.display = 'none';
+    document.querySelector('div#menuHamburguer').style.display = 'none';
+    document.querySelector('div#rodape').style.display = 'none';
+
+
+    const titleValue = localStorage.getItem(titleKey);
+    const textValue = localStorage.getItem(textKey);
+    const dateValue = localStorage.getItem(dateKey);
+
+    if (titleValue !== null && textValue !== null && dateValue !== null) {
+        const noteDetails = document.createElement('div');
+        noteDetails.classList.add('nota_detalhes');
+        noteDetails.innerHTML = `
+            <input type="text" value="${titleValue}" class="nota_titulo" />
+            <textarea class="nota_conteudo">${textValue}</textarea>
+            <small>${dateValue}</small>
+            <button class="botao_salvar"><i class="fa-solid fa-save"></i></button>
+            <button class="botao_elim_nota"><i class="fa-solid fa-trash"></i></button>
+            <button class="botao_voltar"><i class="fa-solid fa-angles-left"></i></button>
+        `;
+        listaNotas.innerHTML = '';
+        listaNotas.appendChild(noteDetails);
+
+        // Adiciona funcionalidade ao botão de salvar
+        const botaoSalvar = noteDetails.querySelector('.botao_salvar');
+        botaoSalvar.addEventListener('click', () => {
+            salvarNota(index);
+        });
+
+        // Adiciona funcionalidade ao botão de eliminar nota
+        const botaoElimNota = noteDetails.querySelector('.botao_elim_nota');
+        botaoElimNota.addEventListener('click', () => {
+            eliminarNota(index);
+        });
+
+        // Adiciona funcionalidade ao botão de voltar dentro dos detalhes da nota
+        const botaoVoltar = noteDetails.querySelector('.botao_voltar');
+        botaoVoltar.addEventListener('click', () => {
+            exibirListaNotas();
+        });
+    }
+}
+
+// Salva as alterações da nota
+function salvarNota(index) {
+    const titleInput = document.querySelector('.nota_titulo');
+    const textInput = document.querySelector('.nota_conteudo');
+
+    const newTitle = titleInput.value;
+    const newText = textInput.value;
+    const dateValue = localStorage.getItem(`you_nota_date${index}`);
+
+    if (newTitle !== null && newText !== null && dateValue !== null) {
+        localStorage.setItem(`you_nota_title${index}`, newTitle);
+        localStorage.setItem(`you_nota_text${index}`, newText);
+        mostrarNotificacao("Nota Atualizada");
+    }
+}
+
+// Remove uma nota pelo índice
+function eliminarNota(index) {
+    localStorage.removeItem(`you_nota_title${index}`);
+    localStorage.removeItem(`you_nota_text${index}`);
+    localStorage.removeItem(`you_nota_date${index}`);
+    mostrarNotificacao("Nota Eliminada");
+    exibirListaNotas(); // Atualiza a lista de notas
+}
+
+// Adiciona funcionalidade ao botão de voltar à seção anterior
+botaoVoltarSeccao.forEach((botao) => {
+    botao.addEventListener('click', () => {
+        document.querySelector('section.adice_nota').style.display = 'block';
+        document.querySelector('h1.titulo').style.display = 'none';
+        document.querySelector('div#menuHamburguer').style.display = 'none';
+        
+
+        notas.style.display = 'none';
+        listaNotas.style.display = 'none';
+        listaNotas.innerHTML = '';
+    });
+});
+
+// Função para carregar as notas salvas
+function carregarNotasSalvas() {
+    for (let index = 0; index < i; index++) {
+        const titleKey = `you_nota_title${index}`;
+        const titleValue = localStorage.getItem(titleKey);
+        const textKey = `you_nota_text${index}`;
+        const textValue = localStorage.getItem(textKey);
+        const dateKey = `you_nota_date${index}`;
+        const dateValue = localStorage.getItem(dateKey);
+        
+        // Verifica se existem notas salvas e se elas não estão vazias
+        if (titleValue !== null && textValue !== null && dateValue !== null) {
+            exibirListaNotas();
+        }
+    }
+}
+// Função de pesquisa
+function pesquisarNota(query) {
+    listaNotas.innerHTML = ''; // Limpa a lista antes de exibir os resultados
+    for (let index = 0; index < i; index++) {
+        const titleKey = `you_nota_title${index}`;
+        const titleValue = localStorage.getItem(titleKey);
+        
+        if (titleValue !== null && titleValue.toLowerCase().includes(query.toLowerCase())) {
+            const noteItem = document.createElement('div');
+            noteItem.classList.add('nota_item');
+            noteItem.dataset.index = index;
+            
+            const starStatusKey = `you_nota_star${index}`;
+            const isStarred = localStorage.getItem(starStatusKey) === 'true';
+            
+            noteItem.innerHTML = `
+                ${titleValue}
+                <button class="btn_star" onclick="toggleStar(this, ${index})">
+                    <i class="fa-star ${isStarred ? 'fa-solid' : 'fa-regular'}" data-index="${index}" style="color: ${isStarred ? 'yellow' : 'white'}"></i>
+                </button>
+            `;
+            listaNotas.appendChild(noteItem);
+        }
+    }
+}
+
+// Adiciona o evento 'input' ao campo de pesquisa para pesquisar em tempo real
+campoPesquisa.addEventListener('input', () => {
+    const query = campoPesquisa.value;
+    pesquisarNota(query);
+});
+
+window.addEventListener('load', () => {
+    const entradaTitulo = document.getElementById('entradaTitulo');
+    const body = document.body;
+    // Adiciona a classe no-scroll para desativar o scroll
+    body.classList.add('no-scroll');
+
+    setTimeout(() => {
+        entradaTitulo.classList.add('hide');
+        
+        setTimeout(() => {
+            entradaTitulo.style.display = 'none';
+
+            // Remove a classe no-scroll para reativar o scroll
+            body.classList.remove('no-scroll');
+        }, 1000); // Tempo para a transição terminar
+    }, 4000); // Exibe o h1 por 5 segundos
+});
+        
+    </script>
+</body>
+</html>

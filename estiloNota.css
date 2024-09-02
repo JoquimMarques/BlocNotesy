@@ -1,0 +1,901 @@
+* {
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+body {
+    background-color: #012a6d;
+    color: #333;
+    margin: 0;
+    padding: 16px;
+}
+span {
+    color: #ffffff;
+}
+
+::-webkit-scrollbar {
+    width: 0px; /* Largura da barra de rolagem vertical */
+    height: 0px; /* Altura da barra de rolagem horizontal */
+}
+
+/* Cor do fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Cor da alça de rolagem */
+::-webkit-scrollbar-thumb {
+    background: red; /* Cor personalizada */
+    border-radius: 0px; /* Bordas arredondadas para a alça */
+}
+
+/* Cor da alça de rolagem ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+    background:red;
+}
+
+.entrada-h1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5em;
+    opacity: 1;
+    transition: opacity 3s ease-out;
+    z-index: 9999;
+    color: #007bff;
+    font-weight: bold;
+    background-image: linear-gradient(-40deg, #2a60f6, #021c46);
+    background-size: 300% 300%; /* Tamanho do background para animar */
+    animation: ira 8s ease infinite;
+}
+
+@keyframes ira {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+
+
+
+.menu_rodape{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    color: white;
+    display: flex;
+    justify-content: center; /* Alinha o conteúdo horizontalmente ao centro */
+    padding-top: 3px;
+    padding-bottom: 1px;
+    margin-left: -20px;
+    gap: 30px;
+    z-index: 1000; /* Garante que o menu esteja acima de outros elementos */
+    
+}
+.menu_rodape button{
+    padding: 5px 50px;
+    background-color: #0073ff;
+    transition: 0.5s;
+    margin-bottom: 2px;
+
+}
+.menu_rodape button:hover{
+    background-color: #00c3ff;
+}
+.desenvol{
+    cursor: pointer;
+    border: none;
+    padding: 5px 50px;
+    border-radius: 30px;
+}
+.desenvol a {
+    color: white;
+    font-size: 25px;
+}
+
+.boton_mostrar_notas {
+    padding: 8px 20px;
+    border: none;
+    font-size: 1.2em;
+    border-radius: 80px;
+    cursor: pointer;
+    color: white;
+    background-color: #00c3ff;
+}
+.boton_mostrar_notas i{
+    font-size:24px ;
+}
+
+
+
+/* isso tem haver com o menu: abri aqui!! */
+.menu-hamburguer {
+   
+    color: white;
+    font-size: 27px;
+    display: flex;
+    margin-top: 7px;
+    float: left;
+    opacity: 0;
+    
+}
+
+.menu-hamburguer .fechar {
+    display: none;
+}
+
+.menu-lista {
+    list-style: none;
+    background-color: #007bff;
+    margin-left: 40px;
+    margin-top: -10px;
+    padding: 0px 10px 3px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    border-radius: 10px;
+}
+
+.menu-lista li {
+    display: inline-block;
+    margin: 8px 10px -20px;
+   
+}
+
+.menu-lista li a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px;
+}
+.menu-lista.expanded {
+    max-height: 500px; /* Ajuste conforme necessário */
+}
+.menu-hamburguer.aberto .hamburguer {
+    display: none;
+   
+}
+.menu-hamburguer.aberto .fechar {
+    display: block;
+}
+.copy{
+    font-size: 24px;
+    padding: 10px 20px;
+   
+}
+ /* fecha aqui!! */
+.btn_star {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+
+.btn_star i {
+    font-size: 16px;
+    transition: color 0.2s ease-in-out;
+}
+.conjunto{
+    background-color: rgb(255, 255, 255);
+    margin-left: 300px;
+    margin-right: 300px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+ #pesquisa_nota{
+    width: calc(10% - -600px);
+    padding: 10px;
+    font-size: 14px;
+    border:none;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    transition: 1s;
+  
+ }
+
+
+ #botao_pesquisar {
+    padding: 10px 19px ;
+    border: none;
+    font-size: 22px;
+    background-color:  transparent;
+    color: rgb(0, 0, 0);
+    border-radius: 11px;
+    cursor: pointer;
+    margin-left: -6px;
+    margin-right: -9px;
+
+   
+    
+}  
+.botao_voltar_seccao {
+    display: block;
+    font-size: 25px;
+    border: none;
+    background-color: red;
+    color: white;
+    border-radius: 80px;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+.nota_detalhes {
+    background-color: transparent; 
+    padding: 9px;
+    margin: -8px -10px; 
+    display: flex;
+    align-items: flex-start;
+    border-radius: 10px;
+    flex-direction: column;
+   
+  
+    
+}
+
+.nota_detalhes input.nota_titulo {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.7em;
+    border: none;
+    border-bottom: 2px solid #4A90E2;
+    font-weight: bold;
+    margin-bottom: -3px;
+    border-radius: 4px;
+    margin-top: -8px;
+    background-color: transparent;
+    color: white;
+}
+
+.nota_detalhes textarea.nota_conteudo {
+    width: 100%;
+    padding: 5px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 1em;
+    resize: none;
+    height: 400px;
+    margin-top: 1px;
+    margin-bottom: 8px;
+   
+  
+}
+
+.nota_detalhes small {
+    display: block;
+    margin-bottom: 10px;
+    color: #ffffff;;
+    font-size: 15px;
+}
+
+.nota_detalhes button.botao_elim_nota,
+.nota_detalhes button.botao_voltar,
+.nota_detalhes button.botao_salvar {
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 14px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;
+    justify-content: flex-end;
+
+   
+}
+
+.nota_detalhes button.botao_salvar i{
+     font-size: 20px;
+}
+.nota_detalhes button.botao_elim_nota i{
+    font-size: 20px;
+}
+.nota_detalhes button.botao_voltar i{
+     font-size: 20px;
+}
+
+.nota_detalhes button.botao_salvar{
+    background-color: green;
+    margin-left: 130px;
+    margin-bottom: -47px;
+}
+.nota_detalhes button.botao_elim_nota {
+    background-color: #dc3545;
+    margin-left: 67px;
+    margin-bottom: -48px;
+    
+}
+
+.nota_detalhes button.botao_voltar {
+    background-color: #007bff;
+}
+
+
+
+
+
+/* Estilo da lista de notas */
+.lista_notas {
+    padding: 10px;
+    margin-top: -50px;
+}
+
+.nota_item {
+    padding: 8px 10px;
+    border: 1px solid #ffffff86;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+    margin-bottom: 15px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    background-color:#0073ffcf;
+
+   
+    
+}
+.nota_item:nth-child(even){
+    background-color: rgba(0, 81, 255, 0.192);
+}
+
+
+
+
+/* Estilo dos detalhes da nota */
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 18px;
+    background-color: #3e8fed;
+    color: white;
+    padding: 19px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 1000;
+}
+
+.notification.show {
+    opacity: 3;
+}
+
+.titulo {
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: -10px;
+    font-size: 2.5em;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.notas {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-bottom: 9vh;
+}
+
+.adice_note_article {
+    background-color: transparent;
+    padding: 20px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    flex-direction: column;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+}
+
+.adice_nota_input,
+.adice_nota_text {
+    background: transparent;
+    margin: 10px 0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    font-size: 1em;
+    color: white;
+}
+.adice_nota_input{
+    border-radius: 10px;
+}
+
+.adice_nota_text {
+    padding-bottom: 360px;
+    border-radius: 8px;
+    
+}
+
+.adice_nota_input::placeholder,
+.adice_nota_text::placeholder {
+    text-align: center;
+    font-family: Arial;
+}
+
+.adice_nota_text {
+    resize: none;
+    height: 100px;
+}
+
+.boton_adice {
+    margin: 10px 0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boton_adice {
+    background-color: #1cb822;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    margin-top: 1px;
+    
+}
+.boton_elim {
+    background-color: #f43636;
+    padding: 16px;
+    border: none;
+    border-radius: 10px;
+    margin-top: -67px;
+    margin-bottom: 50px;
+    margin-right: 10px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    float: right; /* Alinhamento à direita */
+}
+
+.you_nota input {
+    margin: 10px 0;
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: none;
+    font-size: 1em;
+    border-bottom: 2px solid #007bff;
+    font-weight: bold;
+}
+
+.you_nota textarea {
+    resize: none;
+    width: calc(100% - 20px);
+    padding: 10px;
+    padding-bottom: 200px;
+    border: none;
+    font-size: 1em;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.you_nota img {
+    width: 1.8em;
+    height: 1.8em;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.copy_1 {
+    text-align: center;
+}
+
+
+
+.copy_2 {
+    display: inline-block;
+    padding: 20px 10px 10px 10px;
+    color: white;
+    font-size: 36px;
+    border-radius: 60px;
+    transition: 0.5s;
+}
+
+.copy_2:hover {
+    transform: scale(1.1);
+}
+
+.copy_2 a {
+    color: white;
+}
+
+.you_nota_btn:nth-child(2) {
+    font-size: 30px;
+    color: #08d019;
+    margin-top: -10px;
+    cursor: pointer;
+}
+
+.you_nota_btn:nth-child(1) {
+    background: none;
+    font-size: 28px;
+    color: rgb(0, 81, 255);
+    margin-left: 30px;
+    margin-bottom: -34px;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid #ccc;
+}
+
+textarea:focus {
+    outline: none;
+    border: 1px solid #ccc;
+}
+
+@media (min-width: 320px) and (max-width: 1024px) {
+    body {
+        background-color: #012a6d;
+        font-family: 'Arial', sans-serif;
+       
+    }
+
+    span {
+        color: #ffffff;
+    }
+    .titulo {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 2.6em;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    .notas {
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .you_nota {
+        width: 100%;
+        margin: 10px 0;
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .you_nota input,
+    .you_nota textarea {
+        width: calc(100% - 20px);
+        margin: 5px 0;
+    }
+
+    input:focus {
+        outline: none;
+        border: 1px solid #ccc;
+    }
+
+    textarea:focus {
+        outline: none;
+        border: 1px solid #ccc;
+    }
+
+    .boton_adice{
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1em;
+    }
+    .boton_elim {
+        background-color: #f43636;
+        padding: 16px;
+        border: none;
+        border-radius: 10px;
+        margin-bottom: 60px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right; /* Alinhamento à direita */
+    }
+
+    .button_action {
+        display: flex; /* Define o display como flexível */
+    }
+
+    .you_nota_btn {
+        cursor: pointer;
+        color: black;
+        font-size: 1em;
+        margin-right: 145px;
+        margin-bottom: -48px;
+        padding: 20px;
+        overflow: hidden;
+        height: 80px;
+        z-index: 1000;
+    }
+
+    .you_nota_btn:nth-child(2) {
+        font-size: 33px;
+        padding: 1px 30px 4px 10px;
+        margin-left: -140px;
+        margin-top: 3px;
+        margin-right: 150px;
+        border-radius: 100px;
+    }
+
+    .you_nota_btn:nth-child(1) {
+        background: none;
+        font-size: 32px;
+        text-align: right;
+        padding: 10px 1px 1px 20px;
+        margin-top: -6px;
+        margin-left: 200px;
+        border-radius: 10px;
+    }
+    .nota_detalhes textarea.nota_conteudo{
+        
+        height: 397px;
+        width: 100%;
+        font-size: 15px;
+    }
+    /* #botao_pesquisar{
+        padding: 9px 13px 11px; ;
+        margin-left: 300px;
+    } */
+    .lista_notas {
+        padding: 100px 1000px 10px -20px;
+        margin-top: -10px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+/* 
+#pesquisa_nota{
+    width: calc(145% - 200px);     
+    margin-left: 10px;
+   } */
+
+.conjunto{
+    background-color: rgb(255, 255, 255);
+    width: calc(110% - 40px);
+    margin-left: 1px;
+    border-radius: 10px;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: center;
+}
+#pesquisa_nota{
+    width: calc(110% -13px); 
+    font-size: 16px;
+    border: 1px solid white;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    cursor: pointer;
+    margin-left: -10px;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    transition: 1s; 
+    background-color: rgb(255, 255, 255);
+        
+   
+   }
+   #pesquisa_nota::placeholder{
+    font-size: 14px;
+    color: black;
+   }
+
+ #botao_pesquisar {
+    padding: 12px;
+    margin-right: -10px;
+    margin-left: 4px;
+    font-size: 22px;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border-radius: 11px;
+    cursor: pointer;
+    margin-left: -1px;
+    margin-right: 9px;
+
+  
+}  
+.menu_rodape{
+   
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-radius: 100px;
+    color: white;
+    display: flex;
+    justify-content: center; /* Alinha o conteúdo horizontalmente ao centro */
+    padding-bottom: 1px;
+    margin-left: -16px;
+    gap: 1px;
+    z-index: 1000; /* Garante que o menu esteja acima de outros elementos */
+}
+
+.menu_rodape button{
+    margin: 3px 10px;
+    text-align: center;
+    font-size: 1.4em;
+    background-color: #0073ffcf;
+    transition: 0.9s;
+}
+.menu_rodape button:hover{
+    background-color: #00c3ff;
+}
+
+.menu_rodape i{
+    color: #ffffff;
+    margin-left: -3px;
+    margin-bottom: -3px;
+}
+
+.boton_mostrar_notas {
+    padding: 20px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+.boton_mostrar_notas i{
+    margin-left: -6px;
+}
+
+
+
+.lista_notas {
+    padding: 10px;
+    margin-top: -8px;
+}
+   .boton_mostrar_notas{
+    padding: 12px;
+}
+
+.nota_item {
+    padding: 7px 10px;
+    border: 1px solid #ffffff86;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+    margin-bottom: 15px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    margin-bottom: 25px;
+    background-color: #0073ffcf
+   
+    
+}
+
+.adice_note_article {
+    background-color: transparent;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 1px;
+    margin-bottom: 15px;
+}
+
+
+.adice_nota_input,
+.adice_nota_text {
+    margin: 10px 0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 11px;
+    border: 1px solid #cccccc;
+    font-size: 1em;
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+}
+.adice_nota_input{
+    margin-bottom: -1px;
+}
+
+
+.adice_nota_text {
+    padding-bottom: 420px;
+    border-radius: 8px;
+    
+    
+}
+
+.adice_nota_input::placeholder,
+.adice_nota_text::placeholder {
+    text-align: center;
+    font-family: Arial;
+}
+
+.adice_nota_text {
+    resize: none;
+    height: 100px;
+}
+
+.boton_adice {
+    margin: 10px 0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boton_adice {
+    background-color: #1cb822;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 1px;
+    margin-top: -1px;
+    
+}
+
+
+
+
+/* Estilo para o elemento de entrada */
+.entrada-h1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5em;
+    opacity: 1;
+    transition: opacity 3s ease-out;
+    z-index: 9999;
+    color: #007bff;
+    font-weight: bold;
+    background-image: linear-gradient(-49deg,  #00c3ff, #03255c,);
+    background-size: 500% 500%; /* Tamanho do background para animar */
+    animation: ira 5s ease infinite;
+}
+
+@keyframes ira {
+    0% {
+        background-position: 100% 50%;
+    }
+    50% {
+        background-position:100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.entrada-h1 span{
+    color: rgb(255, 255, 255);
+}
+
+.no-scroll {
+    position: fixed;
+    width: 100%;
+}
+    
+ 
+}
